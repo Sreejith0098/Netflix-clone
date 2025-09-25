@@ -28,11 +28,11 @@ const Home = () => {
               <img src={infoIcon} alt="" />More Info
             </button>
           </div>
-          {/* <TitleCards/> */}
+          <TitleCards/>
         </div>
       </div>
       <div className="more-cards">
-        <TitleCards/>
+       
       <TitleCards title={"Blockbuster Movies"}/>
       <TitleCards title={"Only on Netflix"}/>
       <TitleCards title={"Upcoming"}/>

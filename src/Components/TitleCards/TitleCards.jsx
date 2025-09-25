@@ -1,44 +1,43 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./TitleCards.css";
-import axios from "axios";
 
 const TitleCards = ({ title, category }) => {
   const cardsRef = useRef();
-  const [movies, setMovies] = useState([]);
+
+  const [episodes, setEpisodes] = useState([]);
+  const [error, setError] = useState(null);
 
   const handleWheel = (event) => {
     event.preventDefault();
-    cardsRef.current.scrollLeft += event.deltaY;
+    if (cardsRef.current) {
+      cardsRef.current.scrollLeft += event.deltaY;
+    }
   };
 
   useEffect(() => {
-    const fetchApi = async () => {
-      const options = {
-        method: "GET",
-        url: "https://imdb8.p.rapidapi.com/auto-complete",
-        params: { q: "game of thr" },
-        headers: {
-          "x-rapidapi-key": "28cde28d03mshafacd633fc6e966p154a21jsn42e66c125b89",
-          "x-rapidapi-host": "imdb8.p.rapidapi.com",
-        },
-      };
-
+    const fetchEpisodes = async () => {
       try {
-        const response = await axios.request(options);
-        // ✅ set only the array of movies
-        setMovies(response.data.d || []);
-      } catch (error) {
-        console.error("API ERROR:", error);
+        const response = await fetch(
+          "https://api.tvmaze.com/seasons/1/episodes"
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setEpisodes(data);
+        console.log("Episodes fetched:", data);
+      } catch (err) {
+        console.error("Error fetching episodes:", err);
+        setError(err.message);
       }
     };
 
-    fetchApi();
+    fetchEpisodes();
 
     if (cardsRef.current) {
       cardsRef.current.addEventListener("wheel", handleWheel);
     }
 
-    // cleanup
     return () => {
       if (cardsRef.current) {
         cardsRef.current.removeEventListener("wheel", handleWheel);
@@ -46,17 +45,22 @@ const TitleCards = ({ title, category }) => {
     };
   }, []);
 
+  if (error) {
+    return <div style={{ color: "red" }}>Error: {error}</div>;
+  }
+
   return (
-    <div style={{marginTop:'170px'}}  className="title-cards">
-      <h2>{title ? title : "Popular on Netflix"}</h2>
+    <div style={{ marginTop: "170px" }} className="title-cards">
+      <h2>{title ? title : "Popular on NetFlix"}</h2>
       <div className="card-list" ref={cardsRef}>
-        {movies.map((card, index) => (
-          <div className="cards" key={index}>
-            <img
-              src={card.i?.imageUrl || "https://via.placeholder.com/150"}
-              alt={card.l}
-            />
-            <p>{card.l}</p>
+        {episodes.map((ep) => (
+          <div className="cards" key={ep.id}>
+            {ep.image ? (
+              <img src={ep.image.original} alt={ep.name} />
+            ) : (
+              <div className="no-image">No Image</div>
+            )}
+            <p>{ep.name}</p>
           </div>
         ))}
       </div>
