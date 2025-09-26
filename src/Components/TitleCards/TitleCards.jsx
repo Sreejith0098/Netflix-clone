@@ -18,7 +18,7 @@ const TitleCards = ({ title, category }) => {
     const fetchEpisodes = async () => {
       try {
         const response = await fetch(
-          "https://api.tvmaze.com/seasons/1/episodes"
+          `${category?category:"https://api.tvmaze.com/seasons/1/episodes"}`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -56,7 +56,7 @@ const TitleCards = ({ title, category }) => {
         {episodes.map((ep) => (
           <div className="cards" key={ep.id}>
             {ep.image ? (
-              <img src={ep.image.original} alt={ep.name} />
+              <img src={ep.image.medium} alt={ep.name} />
             ) : (
               <div className="no-image">No Image</div>
             )}
