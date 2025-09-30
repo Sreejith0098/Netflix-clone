@@ -12,7 +12,7 @@ const Login = () => {
           {
             signState==="Sign Up"? <input type="text" placeholder='Your Name' />:<></>
           }
-        
+         
           <input type="email" placeholder='Email' />
           <input type="password" placeholder='Password' />
           <button>{signState}</button>
