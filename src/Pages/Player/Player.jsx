@@ -4,10 +4,19 @@ import "./Player.css";
 import back_arrow_icon from "../../assets/back_arrow_icon.png";
 
 const Player = () => {
+ 
+const[apiData,setApiData] =useState({
+  name:"",
+  key: "",
+  publishedAt:"",
+  typeof:""
+
+})
   const id = useParams();
   const [videos, setVideos] = useState([]);
   const { videoId } = useParams();
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY; 
@@ -20,7 +29,7 @@ const Player = () => {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        setVideos(data.items || []);
+        setApiData(data.items[0]) ;
       })
       .catch((err) => console.error("YouTube fetch error:", err));
   }, []);
@@ -49,8 +58,8 @@ const Player = () => {
             frameBorder="0"
           ></iframe>
           <div className="player-info">
-            <p>{new Date(selectedVideo.snippet.publishedAt).toDateString()}</p>
-            <p>{selectedVideo.snippet.title}</p>
+            <p>{apiData.publishedAt}</p>
+            <p>{apiData.snippet.title}</p>
           </div>
         </>
       ) : (
