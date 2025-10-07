@@ -36,7 +36,7 @@ const Home = () => {
       <TitleCards   title={"Blockbuster Movies"}/>
       <TitleCards  title={"Only on Netflix"}/>
       <TitleCards   title={"Upcoming"}/>
-      <TitleCards category={"https://api.tvmaze.com/shows/1/seasons"}  title={"Top Pics for You"}/>
+      <TitleCards   title={"Top Pics for You"}/>
       </div>
       <Footer/>
     </div>

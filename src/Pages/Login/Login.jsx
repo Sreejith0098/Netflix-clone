@@ -2,18 +2,20 @@ import React, { useState } from 'react'
 import './Login.css'
 import logo from '../../assets/logo.png'
 import { login,signup } from '../../firebase'
+import { useNavigate } from 'react-router-dom'
 const Login = () => {
   const[signState,setSignState] = useState("Sign In")
-  const[name,setName] =useState("")
-  const[email,setEmail] =useState("")
-  const[password,setPassword] =useState("")
-
+  const[name,setName] = useState("")
+  const[email,setEmail] = useState("")
+  const[password,setPassword] = useState("")
+  
   const user_auth = async (event) => {
     event.preventDefault()
      if(signState=== "Sign In"){
       await login(email,password)
      }else{
       await signup(name,email,password)
+          
      }
   }
   return (
