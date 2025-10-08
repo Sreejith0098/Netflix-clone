@@ -28,6 +28,7 @@ const signup =async (name,email,password) => {
         authProvider:"local",
         email,
      })
+     toast("Sign Up Successful")
      } catch (error) {
         console.log(error)
         toast.error(error.code)
