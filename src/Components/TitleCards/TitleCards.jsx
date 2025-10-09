@@ -24,26 +24,19 @@ const TitleCards = ({ title, category }) => {
         }
         const data = await response.json();
 
-        
         let sortedData = [...data];
 
         if (title === "Blockbuster Movies") {
-          
           sortedData.sort((a, b) => a.name.localeCompare(b.name));
         } else if (title === "Only on Netflix") {
-          
           sortedData.sort((a, b) => b.name.localeCompare(a.name));
         } else if (title === "Upcoming") {
-          
           sortedData.reverse();
         } else if (title === "Top Pics for You") {
-         
           sortedData = sortedData.sort(() => Math.random() - 0.5).slice(0, 10);
         } else if (title === "Recently Added") {
-          
           sortedData = sortedData.slice(-5);
         } else {
-         
           sortedData.sort((a, b) => a.id - b.id);
         }
 
