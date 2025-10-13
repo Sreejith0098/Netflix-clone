@@ -11,7 +11,7 @@
   width: 100%;
   padding-left: 6%;
   bottom: 50px;
-  /* bottom: -400px; */
+  
 }
 .caption-img {
   width: 90%;
@@ -55,3 +55,4 @@
 .hero-btns .dark-btn:hover {
   background: #6d6d6e66;
 }
+

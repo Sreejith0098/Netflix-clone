@@ -9,6 +9,7 @@ import TitleCards from "../../Components/TitleCards/TitleCards";
 import Footer from "../../Components/Footer/Footer";
 const Home = () => {
   return (
+    
     <div className="home">
       <Navbar />
       <div className="hero">
